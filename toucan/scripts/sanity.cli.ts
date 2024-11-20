@@ -14,9 +14,9 @@ const token = process.env.SANITY_TOKEN!;
 const client = createClient({
   projectId,
   dataset,
-  token, // Optional, only needed for authenticated requests
-  useCdn: !token && process.env.NODE_ENV === 'production', // Use CDN for public requests in production
-  apiVersion: '2023-11-19', // Use today's date
+  token,
+  // useCdn: !token && process.env.NODE_ENV === 'production',
+  apiVersion: '2023-11-19',
 });
 
 export default client;
