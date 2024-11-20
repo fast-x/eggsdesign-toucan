@@ -17,7 +17,7 @@
     "axios": "^1.7.7",
     "babel-plugin-inline-react-svg": "^2.0.2",
     "formidable": "^3.5.2",
-    "next": "^13",
+    "next": "^14",
     "next-auth": "^4.22.1",
     "react": "18.2.0",
     "react-beautiful-dnd": "^13.1.1",
