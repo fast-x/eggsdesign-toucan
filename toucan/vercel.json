@@ -5,11 +5,5 @@
       "src": "toucan/package.json",
       "use": "@vercel/next"
     }
-  ],
-  "rewrites": [
-    {
-      "source": "toucan/(.*)",
-      "destination": "/toucan/$1"
-    }
   ]
 }
