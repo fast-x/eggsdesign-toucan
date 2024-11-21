@@ -22,21 +22,29 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return loginRedirectConfig;
   }
 
-  const userProfile = await getProfileFromEmail(session.user.email);
-  const tags = await getAllTags();
-  const posts = await getAllPosts();
+  try {
+    const userProfile = await getProfileFromEmail(session.user.email);
+    const tags = await getAllTags();
+    const posts = await getAllPosts();
 
-  const props: Props = {
-    user: {
-      ...userProfile,
-      email: session.user.email,
-      image: userProfile?.image || null,
-    },
-    posts,
-    tags,
-  };
+    return {
+      props: {
+        user: {
+          ...userProfile,
+          email: session.user.email,
+          image: userProfile?.image || null,
+        },
+        posts,
+        tags,
+      },
+    };
+  } catch (error) {
+    console.error('Error in getServerSideProps:', error);
 
-  return { props };
+    return {
+      notFound: true, // Return a 404 page in case of errors
+    };
+  }
 };
 
 const Home: NextPage<Props> = ({ user, posts, tags }) => {
