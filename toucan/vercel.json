@@ -1,4 +1,9 @@
 {
   "version": 2,
-  "rewrites": [{ "source": "toucan/(.*)", "destination": "toucan/" }]
+  "rewrites": [
+    {
+      "source": "/toucan/(.*)",
+      "destination": "/toucan/$1"
+    }
+  ]
 }
