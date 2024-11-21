@@ -1,10 +1,10 @@
+import classNames from 'classnames';
+import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
-import Image from 'next/image';
 import { colBlack, snappy } from '../styles/variables';
-import Link from 'next/link';
-import classNames from 'classnames';
-import { Ref, Image as ImageType } from '../types';
+import { Image as ImageType, Ref } from '../types';
 
 type Props = {
   image: Ref<ImageType>;
@@ -42,7 +42,7 @@ const Avatar: React.FC<Props> = ({
   return (
     <Wrapper className={wrapperClassNames} height={size}>
       {link ? (
-        <Link href={`/profile/${id}`}>
+        <Link href={`/profile/${id}`} legacyBehavior>
           <a>
             <div className="image-container" style={{ height: size, width: size }}>
               {image && (

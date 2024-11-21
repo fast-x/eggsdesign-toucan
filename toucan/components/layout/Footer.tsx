@@ -1,10 +1,10 @@
-import styled from 'styled-components';
-import React from 'react';
-import { CenterContent } from '../index';
-import { colBlack, colEmerald, colGrey, colLightGrey, colWhite, screenWidthSmall } from '../../styles/variables';
 import Link from 'next/link';
-import Leaves from './Leaves';
+import React from 'react';
+import styled from 'styled-components';
+import { colBlack, colEmerald, colGrey, colLightGrey, colWhite, screenWidthSmall } from '../../styles/variables';
 import JumpToTop from '../clickables/JumpToTop';
+import { CenterContent } from '../index';
+import Leaves from './Leaves';
 
 const Footer: React.FC = () => {
   return (
@@ -20,8 +20,8 @@ const Footer: React.FC = () => {
         </div>
         <div className="right">
           <JumpToTop />
-          <Link href="/about">
-            <a title="About Toucan">About Toucan</a>
+          <Link href="/about" title="About Toucan">
+            About Toucan
           </Link>
         </div>
         <div className="bottom">

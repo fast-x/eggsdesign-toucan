@@ -1,17 +1,17 @@
-import React, { ChangeEvent, useContext, useState, useEffect } from 'react';
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import Avatar from '../Avatar';
-import Button from '../clickables/Button';
-import CreatePost from './CreatePost';
 import ToucanLogo from '../../assest/visuals/ToucanLogo';
-import ProfileMenu from './ProfileMenu';
-import SimpleSearch from '../formElements/SimpleSearch';
+import AuthContext from '../../contexts/AuthContext';
 import { buttonResetStyles } from '../../styles/styles';
 import { bezier, tokens } from '../../styles/variables';
-import { signIn } from 'next-auth/react';
 import { TagByUser } from '../../types';
-import AuthContext from '../../contexts/AuthContext';
+import Avatar from '../Avatar';
+import Button from '../clickables/Button';
+import SimpleSearch from '../formElements/SimpleSearch';
+import CreatePost from './CreatePost';
+import ProfileMenu from './ProfileMenu';
 
 interface Props {
   tags?: TagByUser[];
@@ -54,7 +54,7 @@ const Header: React.FC<Props> = ({ tags }) => {
       <Wrapper>
         <div className="header-left">
           <h1>Toucan</h1>
-          <Link href="/">
+          <Link href="/" legacyBehavior>
             <a title="Go back to homepage" className="homepage-link">
               <ToucanLogo />
             </a>

@@ -1,13 +1,12 @@
+import { Cards } from '@phosphor-icons/react';
+import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
-import Image from 'next/image';
-import Avatar from '../Avatar';
-import { colBlack, colWhite, bezier } from '../../styles/variables';
-import { rgba } from 'polished';
-import { Cards } from '@phosphor-icons/react';
-import CommentsCount from '../info/CommentsCount';
+import { bezier } from '../../styles/variables';
 import { Post as PostType } from '../../types';
-import Link from 'next/link';
+import Avatar from '../Avatar';
+import CommentsCount from '../info/CommentsCount';
 
 type Props = {
   post: PostType;
@@ -18,7 +17,7 @@ const PostCard: React.FC<Props> = ({ post }: Props) => {
   const image = images?.[0];
   return (
     <Post>
-      <Link href={`/posts/${post._id}`}>
+      <Link href={`/posts/${post._id}`} legacyBehavior>
         <a>
           <PostImageWrapper>
             {images.length > 1 && (
@@ -51,8 +50,8 @@ const PostCard: React.FC<Props> = ({ post }: Props) => {
           id={post.author._id}
         />
         {post.comments && post.comments.length && post.comments.length > 0 ? (
-              <CommentsCount count={post.comments.length} />
-            ) : null}
+          <CommentsCount count={post.comments.length} />
+        ) : null}
       </section>
     </Post>
   );
@@ -108,7 +107,7 @@ const Post = styled.li`
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  
+
   .author {
     display: flex;
     gap: 1rem;
@@ -121,8 +120,8 @@ const PostImageWrapper = styled.div`
   border-radius: 0.8rem;
   margin-bottom: 0.4rem;
   background-color: white;
-  >span {
-    display: block!important;;
+  > span {
+    display: block !important;
   }
 `;
 

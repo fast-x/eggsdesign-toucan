@@ -1,21 +1,20 @@
 import type { NextPage } from 'next';
-import React from 'react';
+import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import styled from 'styled-components';
-import { GetServerSideProps } from 'next';
-import { getProfileFromEmail } from '../scripts/api';
-import Layout from '../components/layout/Layout';
-import Header from '../components/layout/Header';
-import { CenterContent } from '../components';
-import { colLightMint, screenWidthSmall } from '../styles/variables';
 import Quarter1 from '../assest/icons/quarter-1.svg';
 import Quarter2 from '../assest/icons/quarter-2.svg';
 import Quarter4 from '../assest/icons/quarter-4.svg';
-import ToucanLogo from '../assest/visuals/ToucanLogo';
 import GreenWave from '../assest/visuals/GreenWave';
+import ToucanLogo from '../assest/visuals/ToucanLogo';
+import { CenterContent } from '../components';
 import Slogan from '../components/info/Slogan';
-import { UserProfile } from '../types';
+import Header from '../components/layout/Header';
+import Layout from '../components/layout/Layout';
+import { getProfileFromEmail } from '../scripts/api';
 import { loginRedirectConfig } from '../scripts/helpers';
+import { colLightMint, screenWidthSmall } from '../styles/variables';
+import { UserProfile } from '../types';
 
 interface Props {
   user: UserProfile;
@@ -28,6 +27,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   const userProfile = await getProfileFromEmail(session.user.email);
+  console.log('userProfile:', userProfile);
 
   const props: Props = {
     user: {
@@ -35,7 +35,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       email: session.user.email,
       firstName: userProfile.firstName,
       lastName: userProfile.lastName,
-      image: userProfile.image ?? null,
+      image: userProfile?.image || null,
     },
   };
 
