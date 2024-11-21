@@ -1,9 +1,15 @@
 {
   "version": 2,
-  "rewrites": [
+  "builds": [
     {
-      "source": "/toucan/(.*)",
-      "destination": "/toucan/$1"
+      "src": "toucan/package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/toucan/$1"
     }
   ]
 }
