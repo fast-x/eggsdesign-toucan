@@ -1,18 +1,17 @@
 import type { GetServerSideProps, NextPage } from 'next';
 import { getSession } from 'next-auth/react';
-import styled from 'styled-components';
-import React from 'react';
 import { useRouter } from 'next/router';
+import styled from 'styled-components';
 import { getAllTags, getPostsByAuthorId, getProfileFromEmail, getUserById } from '../../scripts/api';
 
 import { CenterContent } from '../../components';
-import Layout from '../../components/layout/Layout';
-import Header from '../../components/layout/Header';
 import Avatar from '../../components/Avatar';
+import Header from '../../components/layout/Header';
+import Layout from '../../components/layout/Layout';
 import PostList from '../../components/posts/PostList';
+import { loginRedirectConfig } from '../../scripts/helpers';
 import { tokens } from '../../styles/variables';
 import { Post, TagByUser, UserProfile } from '../../types';
-import { loginRedirectConfig } from '../../scripts/helpers';
 
 interface Props {
   user: UserProfile;
@@ -40,7 +39,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       firstName: userProfile.firstName,
       lastName: userProfile.lastName,
       title: userProfile.title ?? null,
-      image: userProfile.image ?? null,
+      // image: userProfile.image ?? null,
+      image: userProfile?.image || null,
     },
     posts,
     tags,

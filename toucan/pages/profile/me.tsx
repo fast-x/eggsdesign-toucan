@@ -1,17 +1,16 @@
 import type { GetServerSideProps, NextPage } from 'next';
-import React from 'react';
-import styled from 'styled-components';
 import { getSession } from 'next-auth/react';
-import { getAllTags, getPostsByAuthorId, getProfileFromEmail } from '../../scripts/api';
+import styled from 'styled-components';
 import { CenterContent } from '../../components';
-import Layout from '../../components/layout/Layout';
-import Header from '../../components/layout/Header';
-import PostList from '../../components/posts/PostList';
 import Avatar from '../../components/Avatar';
+import Header from '../../components/layout/Header';
+import Layout from '../../components/layout/Layout';
+import PostList from '../../components/posts/PostList';
+import { getAllTags, getPostsByAuthorId, getProfileFromEmail } from '../../scripts/api';
 import { tokens } from '../../styles/variables';
 
-import { Post, TagByUser, UserProfile } from '../../types';
 import { loginRedirectConfig } from '../../scripts/helpers';
+import { Post, TagByUser, UserProfile } from '../../types';
 interface Props {
   user: UserProfile;
   posts?: Post[];
@@ -35,7 +34,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       firstName: userProfile.firstName,
       lastName: userProfile.lastName,
       title: userProfile.title ?? null,
-      image: userProfile.image ?? null,
+      // image: userProfile.image ?? null,
+      image: userProfile?.image || null,
     },
     posts,
     tags,

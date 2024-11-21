@@ -1,14 +1,14 @@
 import type { GetServerSideProps, NextPage } from 'next';
-import React, { useCallback, useContext, useEffect } from 'react';
 import { getSession } from 'next-auth/react';
-import { getAllPosts, getAllTags, getProfileFromEmail } from '../scripts/api';
-import Layout from '../components/layout/Layout';
-import Header from '../components/layout/Header';
+import React, { useCallback, useContext, useEffect } from 'react';
 import { CenterContent } from '../components';
+import Header from '../components/layout/Header';
+import Layout from '../components/layout/Layout';
 import PostList from '../components/posts/PostList';
-import { User, Post, TagByUser } from '../types';
 import AuthContext from '../contexts/AuthContext';
+import { getAllPosts, getAllTags, getProfileFromEmail } from '../scripts/api';
 import { loginRedirectConfig } from '../scripts/helpers';
+import { Post, TagByUser, User } from '../types';
 
 interface Props {
   user: User;
@@ -30,7 +30,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     user: {
       ...userProfile,
       email: session.user.email,
-      image: userProfile.image ?? null,
+      image: userProfile?.image || null,
     },
     posts,
     tags,

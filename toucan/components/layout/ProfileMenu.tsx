@@ -1,11 +1,11 @@
-import styled from 'styled-components';
-import React from 'react';
-import Link from 'next/link';
 import { signOut } from 'next-auth/react';
-import Button from '../clickables/Button';
+import Link from 'next/link';
+import React from 'react';
+import styled from 'styled-components';
 import { ButtonVariant } from '../../@types';
 import { tokens } from '../../styles/variables';
 import { UserProfile } from '../../types';
+import Button from '../clickables/Button';
 
 type Props = {
   open: boolean;
@@ -17,7 +17,7 @@ const ProfileMenu: React.FC<Props> = ({ open }: Props) => {
     <Wrapper className={`${open && 'open'}`}>
       <ul>
         <li>
-          <Link href="/profile/me">
+          <Link href="/profile/me" legacyBehavior>
             <a title="Go to your profile page">View profile</a>
           </Link>
         </li>
@@ -41,7 +41,9 @@ const Wrapper = styled.div`
   background-color: white;
   padding: 0.75rem;
   border: 1px solid rgba(1, 22, 39, 0.12);
-  box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.05), 0px 2px 3px rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0px -1px 4px rgba(0, 0, 0, 0.05),
+    0px 2px 3px rgba(0, 0, 0, 0.1);
   border-radius: 12px 0px 12px 12px;
   ul {
     padding-bottom: 0;

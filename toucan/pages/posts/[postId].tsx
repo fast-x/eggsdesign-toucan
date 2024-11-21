@@ -1,20 +1,20 @@
+import { ArrowLeft, ArrowsInSimple, ArrowsOutSimple } from '@phosphor-icons/react';
 import type { GetServerSideProps, NextPage } from 'next';
 import { getSession } from 'next-auth/react';
-import React, { useCallback, useContext, useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { getAllTags, getPostById, getPostsByAuthorId, getProfileFromEmail } from '../../scripts/api';
-import { ButtonVariant } from '../../@types';
-import Layout from '../../components/layout/Layout';
-import { screenWidthLarge } from '../../styles/variables';
-import Header from '../../components/layout/Header';
-import PostInfo from '../../components/posts/PostInfo';
-import ImageCarouselNav from '../../components/clickables/ImageCarouselNav';
-import Button from '../../components/clickables/Button';
-import { ArrowsOutSimple, ArrowsInSimple, ArrowLeft } from '@phosphor-icons/react';
 import { useRouter } from 'next/router';
-import { User, Post as PostType, TagByUser } from '../../types';
+import { useCallback, useContext, useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { ButtonVariant } from '../../@types';
+import Button from '../../components/clickables/Button';
+import ImageCarouselNav from '../../components/clickables/ImageCarouselNav';
+import Header from '../../components/layout/Header';
+import Layout from '../../components/layout/Layout';
+import PostInfo from '../../components/posts/PostInfo';
 import AuthContext from '../../contexts/AuthContext';
+import { getAllTags, getPostById, getPostsByAuthorId, getProfileFromEmail } from '../../scripts/api';
 import { loginRedirectConfig } from '../../scripts/helpers';
+import { screenWidthLarge } from '../../styles/variables';
+import { Post as PostType, TagByUser, User } from '../../types';
 
 interface Props {
   user: User;
@@ -38,7 +38,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     user: {
       ...userProfile,
       email: session.user.email,
-      image: userProfile.image ?? null,
+      // image: userProfile.image ?? null,
+      image: userProfile?.image || null,
     },
     post,
     morePostsByUser,
