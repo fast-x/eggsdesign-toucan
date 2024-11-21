@@ -1,12 +1,14 @@
 {
   "name": "toucan",
   "version": "0.1.0",
+  "main": "toucan/pages/index.tsx",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "NODE_OPTIONS=--max_old_space_size=8096 next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "format": "prettier . --write"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.7",
