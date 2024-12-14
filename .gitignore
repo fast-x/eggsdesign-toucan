@@ -1,0 +1,11 @@
+toucan-frontend/.env
+toucan-frontend/node_modules
+node_modules
+dist/
+.cache
+.idea
+.DS_Store
+yarn-error.log
+.env
+.netlify
+.turbo

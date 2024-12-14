@@ -1,0 +1,57 @@
+{
+  "root": true,
+  "project": {
+    "name": "Yolk Database"
+  },
+  "api": {
+    "projectId": "bxno5me3",
+    "dataset": "production"
+  },
+  "env": {
+    "development": {
+      "api": {
+        "dataset": "development"
+      }
+    }
+  },
+  "__experimental_spaces": [
+    {
+      "name": "bxno5me3",
+      "title": "Production 🔥",
+      "default": true,
+      "api": {
+        "projectId": "bxno5me3",
+        "dataset": "production"
+      }
+    },
+    {
+      "name": "development",
+      "title": "Development",
+      "api": {
+        "projectId": "bxno5me3",
+        "dataset": "development"
+      }
+    }
+  ],
+  "plugins": [
+    "@sanity/base",
+    "@sanity/components",
+    "@sanity/default-layout",
+    "@sanity/default-login",
+    "@sanity/desk-tool",
+    "@sanity/google-maps-input",
+    "@sanity/vision",
+    "eggs-studio-logo",
+    "media"
+  ],
+  "parts": [
+    {
+      "name": "part:@sanity/base/schema",
+      "path": "./schemas/schema.js"
+    },
+    {
+      "name": "part:@sanity/desk-tool/structure",
+      "path": "./deskStructure.js"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+name: CI | linting
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./pnp-frontend
+    steps:
+      - uses: actions/checkout@v2
+      - name: install modules
+        run: yarn
+      - name: Run ESLint
+        run: yarn lint

@@ -1,0 +1,18 @@
+{
+  "name": "pnp-shared",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "index.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eggsdesign/yolk-dashboard.git",
+    "directory": "pnp-shared"
+  },
+  "bugs": "https://github.com/eggsdesign/yolk-dashboard",
+  "files": [
+    "index.d.ts",
+    "index.ts",
+    "schemas"
+  ]
+}

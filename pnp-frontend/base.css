@@ -1,0 +1,33 @@
+@font-face {
+  font-family: 'Haffer';
+  src: url('src/assets/fonts/HafferPrototypo-Concrete.otf');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'HafferPrototypo';
+  src: url('src/assets/fonts/HafferPrototypo-Semi-Abstract.otf');
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Haffer', sans-serif;
+}
+
+@media print {
+  html {
+    font-size: 16pt;
+  }
+
+  a,
+  a:visited {
+    color: inherit;
+    text-decoration: inherit;
+  }
+
+  @page {
+    /* 16:9 digital size (does not work in safari) */
+    size: 1920px 1080px;
+    margin: 60pt;
+  }
+}

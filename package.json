@@ -1,0 +1,32 @@
+{
+  "name": "yolk-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Monorepo for yolk people and projects and eggsdesign sanity studio",
+  "workspaces": [
+    "pnp-server",
+    "pnp-frontend",
+    "pnp-shared",
+    "yolk-sanity"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:pnp": "turbo run dev --filter=pnp-*",
+    "start": "turbo run start",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "lint:staged": "turbo run lint:staged",
+    "format": "turbo run format",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "husky": "^8.0.1",
+    "turbo": "^1.6.3"
+  },
+  "resolutions": {
+    "lodash": "4.17.21",
+    "react": "17.0.2",
+    "@types/react": "17.0.2"
+  }
+}
