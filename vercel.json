@@ -4,6 +4,19 @@
     {
       "src": "toucan-frontend/package.json",
       "use": "@vercel/next"
+    },
+    {
+      "src": "yolk-sanity/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/studio/(.*)",
+      "destination": "/yolk-sanity/dist/$1"
     }
   ]
 }
