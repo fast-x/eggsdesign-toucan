@@ -10,6 +10,7 @@
     "dev": "sanity start",
     "start": "sanity start",
     "test": "sanity check",
+    "build": "sanity build dist",
     "deploy": "sanity deploy"
   },
   "keywords": [
