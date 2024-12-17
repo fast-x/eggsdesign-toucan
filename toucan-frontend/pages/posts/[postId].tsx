@@ -32,7 +32,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const userProfile = await getProfileFromEmail(session.user.email);
   const post = await getPostById(context.query.postId as string);
   const tags = await getAllTags();
-  const morePostsByUser = await getPostsByAuthorId(post.author._id);
+  const morePostsByUser = await getPostsByAuthorId(post.author?._id);
 
   const props: Props = {
     user: {
@@ -102,7 +102,7 @@ const Post: NextPage<Props> = ({ user, post, morePostsByUser, tags }) => {
             </ImageWrapper>
           </ImageCard>
           <PostInfo
-            author={post.author}
+            author={post?.author ?? null}
             post={post}
             isOpen={postInfoOpen}
             closeCard={togglePostInfo}

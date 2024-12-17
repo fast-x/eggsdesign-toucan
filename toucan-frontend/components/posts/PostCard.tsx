@@ -45,10 +45,10 @@ const PostCard: React.FC<Props> = ({ post }: Props) => {
       <section className="text-content">
         <Avatar
           size={20}
-          image={post.author.image}
-          name={`${post.author.firstName} ${post.author.lastName}`}
+          image={post.author?.image}
+          name={`${post.author?.firstName} ${post.author?.lastName}`}
           link
-          id={post.author._id}
+          id={post.author?._id}
         />
         {post.comments && post.comments.length && post.comments.length > 0 ? (
               <CommentsCount count={post.comments.length} />

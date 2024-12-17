@@ -46,10 +46,10 @@ const PostInfo: React.FC<Props> = ({ author, post, isOpen, className }: Props) =
   return (
     <Wrapper className={wrapperClassNames}>
       <header>
-        <Avatar image={author.image} size={48} />
+        <Avatar image={author?.image} size={48} />
         <div className="text-content">
           <span>
-            {post.author.firstName} {post.author.lastName}
+            {post.author?.firstName} {post.author?.lastName}
           </span>
           <span>{formatDateString(post._createdAt)}</span>
         </div>
@@ -57,7 +57,7 @@ const PostInfo: React.FC<Props> = ({ author, post, isOpen, className }: Props) =
       <h1>{post.title}</h1>
       {post.description && <p className="desc">{post.description}</p>}
       {post.tags && <Tags tags={post.tags} />}
-      {user && post.author._id === user._id && (
+      {user && post.author?._id === user._id && (
         <Button
           variant={ButtonVariant.SECONDARY}
           size={ButtonSize.SMALL}
