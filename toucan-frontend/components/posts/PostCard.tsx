@@ -47,7 +47,7 @@ const PostCard: React.FC<Props> = ({ post }: Props) => {
           size={20}
           image={post.author?.image}
           name={`${post.author?.firstName} ${post.author?.lastName}`}
-          link
+          link={post.author?._id != undefined}
           id={post.author?._id}
         />
         {post.comments && post.comments.length && post.comments.length > 0 ? (

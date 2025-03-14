@@ -90,6 +90,7 @@ export async function getPostsByAuthorId(id: string) {
       ...,
       tags[] -> {...},
       author -> { 
+        _id,
         firstName,
         lastName,
         image { asset-> },
