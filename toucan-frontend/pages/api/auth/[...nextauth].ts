@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth';
 import AzureADProvider from 'next-auth/providers/azure-ad';
+import { getProfileFromEmail, createUserInSanity, getUserDetailsFromFlowcase } from '../../../scripts/api';
 
 export default NextAuth({
   providers: [
@@ -14,4 +15,30 @@ export default NextAuth({
       },
     } as any),
   ],
+
+  callbacks: {
+    async signIn({ user }) {
+      try {
+        const email = user.email;
+        if (!email) {
+          console.warn('No email found on user.');
+          return false;
+        }
+
+        const existingUser = await getProfileFromEmail(email);
+        if (existingUser) return true;
+        const { image, title } = await getUserDetailsFromFlowcase(email, user.image as string);
+        await createUserInSanity(user.name!, email, image, title);
+
+        return true;
+      } catch (err) {
+        console.error('Error in signIn callback:', err);
+        return false;
+      }
+    },
+
+    async session({ session }) {
+      return session;
+    },
+  },
 });
