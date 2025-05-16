@@ -34,11 +34,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const props: Props = {
     user: {
-      _id: userProfile._id,
+      _id: userProfile?._id ?? null,
       email: session.user.email,
-      firstName: userProfile.firstName,
-      lastName: userProfile.lastName,
-      title: userProfile.title ?? null,
+      firstName: userProfile?.firstName?? null,
+      lastName: userProfile?.lastName?? null,
+      title: userProfile?.title ?? null,
       // @ts-ignore
       image: userProfile?.image ?? null,
     },

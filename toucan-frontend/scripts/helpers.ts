@@ -1,4 +1,5 @@
 // TODO trim spaces at the end and beginning of words
+import client from './sanity';
 
 export const splitStringToArray = (longString: string) => {
   return longString.split(',').map((word) => word.trim());
@@ -24,3 +25,37 @@ export const loginRedirectConfig = {
     permanent: false,
   },
 };
+
+export function getFormattedName(email: string, userName?: string) {
+  const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+
+  try {
+    const localPart = email.split('@')[0];
+    const [first, last] = localPart.split('.');
+
+    if (!first || !last) {
+      throw new Error();
+    }
+
+    return {
+      firstName: capitalize(first),
+      lastName: capitalize(last),
+    };
+  } catch {
+    if (!userName) {
+      throw new Error('Cannot extract name from email and no fallback userName provided.');
+    }
+
+    const parts = userName.toLowerCase().split(' ');
+    if (parts.length < 2) {
+      throw new Error('Fallback userName format is invalid.');
+    }
+
+    const [last, first] = parts;
+
+    return {
+      firstName: capitalize(first),
+      lastName: capitalize(last),
+    };
+  }
+}

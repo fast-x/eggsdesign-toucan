@@ -12,9 +12,9 @@ type Props = {
 const PostList: React.FC<Props> = ({ posts, title }: Props) => {
   if (posts.length == 0) {
     return (
-      <div>
-        <h3>No posts found. Please add some!</h3>
-      </div>
+      <Centered>
+        <p style={{ fontSize: '1.5rem' }}>No posts found. Please add some!</p>
+      </Centered>
     );
   }
 
@@ -40,6 +40,11 @@ const Wrapper = styled.div`
   }
 `;
 
+const Centered = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 const TagsFilter = styled.div``;
 
 const Posts = styled.ul`

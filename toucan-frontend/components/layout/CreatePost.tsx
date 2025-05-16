@@ -51,6 +51,7 @@ const CreatePost: React.FC<Props> = ({ user, allTags, className }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [carouselActiveIndex, setCarouselActiveIndex] = useState<number>(0);
   const [windowWidth, setWindowWidth] = useState<number>(0);
+  const [formTouched, setFormTouched] = useState(false);
 
   const onMount = useCallback(() => {
     if (document && document.defaultView) {
@@ -98,8 +99,10 @@ const CreatePost: React.FC<Props> = ({ user, allTags, className }: Props) => {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setIsLoading(true);
+    setFormTouched(true);
     if (!previews?.length || previews.length === 0) return;
+    setIsLoading(true);
+
     const formData: File[] = previews.map((preview) => preview as unknown as File);
     const postData = {
       title,
@@ -121,6 +124,9 @@ const CreatePost: React.FC<Props> = ({ user, allTags, className }: Props) => {
         setIsLoading(false);
         router.push('/');
         // TODO Hvordan kan jeg laste forsiden på nytt, og fremdeles vite at jeg nettopp har postet en post? Jeg vil at den posten skal bounce litt eller noe, men seff bare om den nettopp er lastet opp
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 
@@ -208,11 +214,12 @@ const CreatePost: React.FC<Props> = ({ user, allTags, className }: Props) => {
     return (
       <>
         <PreviewImage>
-          {carouselActiveIndex === 0 &&
+          {carouselActiveIndex === 0 && (
             <CoverImageLabel>
               <ImageSquare size={16} weight="bold" />
               <>Cover image</>
-            </CoverImageLabel>}
+            </CoverImageLabel>
+          )}
           <Image
             src={previews[carouselActiveIndex].preview}
             alt={previews[carouselActiveIndex].name}
@@ -286,6 +293,7 @@ const CreatePost: React.FC<Props> = ({ user, allTags, className }: Props) => {
 
   const [showDropzone, setShowDropzone] = useState(false);
   const dropzoneRef = useRef(null);
+  const [titleTouched, setTitleTouched] = useState(false);
 
   useEffect(() => {
     function handleWindowDragOver(event: { preventDefault: () => void }) {
@@ -367,10 +375,13 @@ const CreatePost: React.FC<Props> = ({ user, allTags, className }: Props) => {
                           label="Title"
                           id="title"
                           required
+                          hasError={titleTouched && title === ''}
+                          errorMessage="Please enter a title."
                           placeholder="Give your post a title..."
                           value={title}
                           name="title"
                           onChange={(e) => setTitle(e.target.value)}
+                          onBlur={() => setTitleTouched(true)}
                         />
                         <TextArea
                           label="Description"
@@ -394,9 +405,14 @@ const CreatePost: React.FC<Props> = ({ user, allTags, className }: Props) => {
                         type="submit"
                         color={ButtonColor.INDIGO}
                         className="submit-post"
-                        disabled={title.length < 5}>
+                        disabled={title.length < 5 /* || previews.length === 0 */}>
                         Share post
                       </Button>
+                      {formTouched && previews.length === 0 && (
+                        <p style={{ color: 'red', marginTop: '0.5rem' }}>
+                          Please upload at least one image before sharing.
+                        </p>
+                      )}
                     </Form>
                   </FormWrapper>
                 </ModalInnerWrapper>
@@ -575,7 +591,7 @@ const CoverImageLabel = styled.h4`
   display: flex;
   align-items: center;
   svg {
-    margin-right: .4rem;
+    margin-right: 0.4rem;
   }
 `;
 

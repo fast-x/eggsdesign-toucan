@@ -99,6 +99,11 @@ const Post: NextPage<Props> = ({ user, post, morePostsByUser, tags }) => {
               {images && images.length > 1 && (
                 <ImageCarouselNav images={images} imageIndex={imageIndex} setImageIndex={setImageIndex} />
               )}
+              {!images && (
+                <Centered className="frame">
+                  <p style={{ fontSize: '2rem' }}>No image</p>
+                </Centered>
+              )}
             </ImageWrapper>
           </ImageCard>
           <PostInfo
@@ -118,6 +123,11 @@ const Post: NextPage<Props> = ({ user, post, morePostsByUser, tags }) => {
   );
 };
 
+const Centered = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 const PageWrapper = styled.div`
   @media (min-width: ${screenWidthLarge}) {
     display: flex;
