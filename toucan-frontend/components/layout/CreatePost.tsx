@@ -179,7 +179,7 @@ const CreatePost: React.FC<Props> = ({ user, allTags, className }: Props) => {
   };
 
   const options = allTags?.map(function (row) {
-    return { _id: row._id, value: row.slug, label: row.value };
+    return { _id: row._id, value: row.slug.current, label: row.value };
   });
 
   const handleSelectTags = (mixedTags: { _id?: string | undefined; value: string; label: string }[]) => {

@@ -11,10 +11,12 @@ import Layout from '../../components/layout/Layout';
 import PostList from '../../components/posts/PostList';
 import { loginRedirectConfig } from '../../scripts/helpers';
 import { tokens } from '../../styles/variables';
-import { Post, TagByUser, UserProfile } from '../../types';
+import { Post, TagByUser, User, UserProfile } from '../../types';
+import { useContext, useCallback, useEffect } from 'react';
+import AuthContext from '../../contexts/AuthContext';
 
 interface Props {
-  user: UserProfile;
+  user: User;
   userProfilePage: UserProfile;
   posts: Post[];
   tags: TagByUser[];
@@ -34,11 +36,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const props: Props = {
     user: {
-      _id: userProfile?._id ?? null,
+      ...userProfile,
+      _id: userProfile._id,
       email: session.user.email,
-      firstName: userProfile?.firstName?? null,
-      lastName: userProfile?.lastName?? null,
-      title: userProfile?.title ?? null,
+      title: userProfile.title ?? null,
       // @ts-ignore
       image: userProfile?.image ?? null,
     },
@@ -59,6 +60,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const Profile: NextPage<Props> = ({ user, posts, userProfilePage, tags }) => {
   const router = useRouter();
+  const { setUser } = useContext(AuthContext);
+  const setUserAuth = useCallback(() => {
+    setUser(user);
+  }, [setUser, user]);
+
+  useEffect(() => {
+    setUserAuth();
+  }, [setUserAuth]);
+
   // If the logged in user is the same as the profile clicked, show the "me" profile
   if (user._id === userProfilePage._id) {
     router.push('/profile/me').then();

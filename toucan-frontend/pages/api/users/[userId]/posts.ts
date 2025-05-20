@@ -56,16 +56,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         }),
       );
 
-      await client.create({
-        _type: 'toucanPost',
-        title: fields.title,
-        description: fields.description,
-        tags,
-        author: {
-          _ref: fields.authorId,
+      await client.create(
+        {
+          _type: 'toucanPost',
+          title: fields.title,
+          description: fields.description,
+          tags,
+          author: {
+            _ref: fields.authorId,
+          },
+          images: uploadedImages,
         },
-        images: uploadedImages,
-      });
+        { autoGenerateArrayKeys: true },
+      );
 
       const posts = await getPostsByAuthorId(req.query.userId as string);
       res.status(200).json({ posts });

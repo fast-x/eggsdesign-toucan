@@ -17,7 +17,12 @@ type SanityDocument = {
 
 export type TagByUser = SanityDocument & {
   value: string;
-  slug: string;
+  slug: Slug;
+};
+
+export type Slug = {
+  _type: string;
+  current: string;
 };
 
 export type Ref<T> = SanityDocument &
@@ -31,6 +36,7 @@ export type User = SanityDocument & {
   lastName: string;
   image: Ref<Image>;
   offices: Office[];
+  title?: string;
 };
 
 type Office = {};

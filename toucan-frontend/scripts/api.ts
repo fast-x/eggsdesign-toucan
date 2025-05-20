@@ -121,14 +121,17 @@ export async function createTag(tag: string): Promise<string> {
 
   if (existingTag.length > 0) return existingTag[0]._id;
 
-  let createdDocument = await client.create({
-    _type: 'tagByUser',
-    value: tag,
-    slug: {
-      _type: 'slug',
-      current: generateSlug(tag),
+  let createdDocument = await client.create(
+    {
+      _type: 'tagByUser',
+      value: tag,
+      slug: {
+        _type: 'slug',
+        current: generateSlug(tag),
+      },
     },
-  });
+    { autoGenerateArrayKeys: true },
+  );
 
   return createdDocument._id;
 }

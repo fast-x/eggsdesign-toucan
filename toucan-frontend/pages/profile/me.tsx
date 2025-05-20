@@ -10,9 +10,11 @@ import { getAllTags, getPostsByAuthorId, getProfileFromEmail } from '../../scrip
 import { tokens } from '../../styles/variables';
 
 import { loginRedirectConfig } from '../../scripts/helpers';
-import { Post, TagByUser, UserProfile } from '../../types';
+import { Post, TagByUser, User, UserProfile } from '../../types';
+import { useContext, useCallback, useEffect } from 'react';
+import AuthContext from '../../contexts/AuthContext';
 interface Props {
-  user: UserProfile;
+  user: User;
   posts?: Post[];
   tags: TagByUser[];
 }
@@ -29,10 +31,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const props: Props = {
     user: {
+      ...userProfile,
       _id: userProfile._id,
       email: session.user.email,
-      firstName: userProfile.firstName,
-      lastName: userProfile.lastName,
       title: userProfile.title ?? null,
       // @ts-ignore
       image: userProfile?.image ?? null,
@@ -44,6 +45,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 const Me: NextPage<Props> = ({ user, posts, tags }) => {
+  const { setUser } = useContext(AuthContext);
+  const setUserAuth = useCallback(() => {
+    setUser(user);
+  }, [setUser, user]);
+
+  useEffect(() => {
+    setUserAuth();
+  }, [setUserAuth]);
   return (
     <Layout>
       <Header tags={tags} />
@@ -58,13 +67,21 @@ const Me: NextPage<Props> = ({ user, posts, tags }) => {
               </h2>
               <span>{user.title}</span>
             </FaceInfo>
-            {posts && <PostList posts={posts} title={`Your posts (${posts?.length})`} />}
+            {posts && (
+              <Padding>
+                <PostList posts={posts} title={`Your posts (${posts?.length})`} />
+              </Padding>
+            )}
           </Wrapper>
         </CenterContent>
       </main>
     </Layout>
   );
 };
+
+const Padding = styled.div`
+  padding: 0 1.5rem;
+`;
 
 const Wrapper = styled.div`
   header {
