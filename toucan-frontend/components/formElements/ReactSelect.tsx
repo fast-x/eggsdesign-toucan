@@ -70,6 +70,13 @@ export default function ReactSelect({
         placeholder={placeholder}
         onChange={onChange}
         required={required}
+        isValidNewOption={(inputValue) => {
+          const trimmed = inputValue.trim();
+          if (trimmed !== '') {
+            return true;
+          }
+          return false;
+        }}
         className="custom-react-select"
         styles={customStyles}
         classNamePrefix="custom-react-select"

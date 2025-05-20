@@ -15,7 +15,7 @@ const Tags: React.FC<Props> = ({ tags, className }: Props) => {
       {tags.map((item, index) => {
         return (
           <li key={`${item}-${index}`}>
-            <Link passHref href={`/tags/${item.value}`}>
+            <Link passHref href={`/tags/${item.slug.current}`}>
               <Tag>#{item.value}</Tag>
             </Link>
           </li>
