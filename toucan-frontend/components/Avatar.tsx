@@ -45,7 +45,7 @@ const Avatar: React.FC<Props> = ({
         <Link href={`/profile/${id}`}>
           <a>
             <div className="image-container" style={{ height: size, width: size }}>
-              {image && (
+              {image?.asset?.url && (
                 <Image
                   src={`${image.asset.url}?h=${size * 2}`}
                   height={48}
@@ -64,7 +64,7 @@ const Avatar: React.FC<Props> = ({
         </Link>
       ) : (
         <div className="image-container" style={{ height: size, width: size }}>
-          {image && (
+          {image?.asset?.url && (
             <>
               <Image
                 src={`${image?.asset?.url}?h=${size * 2}`}
