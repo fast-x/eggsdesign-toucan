@@ -72,6 +72,7 @@ export async function getAllPostsByTag(tag: string) {
         firstName,
         lastName,
         image { asset-> },
+        _id,
       },
       images[]{ 
         ..., 
