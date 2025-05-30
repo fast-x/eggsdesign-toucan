@@ -1,54 +1,34 @@
-# Yolk Dashboard
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-This is a monorepo containing some of our core homegrown software in EGGS. These projects were originally tracked in separate repos, but due to their level of inter-dependence, they have now been gathered here.
+## Getting Started
 
-## Setup
+First, run the development server:
 
-1. Clone the repo to your machine
-2. Create .env files form both the `pnp-frontend` and `pnp-server` projects, based on the .env.template files in each project folder respectively
-
-**Note:** to operate on a different Sanity dataset you need to update .env values for both pnp-server and pnp-frontend.
-
-## Development
-This a monorepo utilizing [Turborepo](https://turborepo.org) that you can use to run the different packages from the root folder.
-
-- Run all configured packages
-```
-yarn run dev
-```
-- Run only pnp-frontend and pnp-server
-```
-yarn run dev:pnp
-```
-- Filter packages with any turbo command [see docs](https://turborepo.org/docs/core-concepts/filtering#filter-by-workspace-name)
-```
-yarn run [command] --filter=[my-filter]
+```bash
+npm run dev
+# or
+yarn dev
 ```
 
-## The projects
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### PnP Frontend aka "Yolk Dashboard"
+You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-Read more in the [readme.md](./pnp-frontend/readme.md)
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-### PnP Server aka "Yolk API"
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-Read more in the [readme.md](./pnp-server/readme.md)
+## Learn More
 
-### Yolk Sanity
+To learn more about Next.js, take a look at the following resources:
 
-This Sanity project is included because it and the PnP Frontend both use schema js files to generate editing interfaces. Instead of maintaining two sets of schemas separately, we just let both subscribe to the same `shared` schema files.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-**Note:** the Yolk Sanity is also used for the EGGS website.
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Developer Guidelines
+## Deploy on Vercel
 
-If you are reading this, it's an indication that you are considering to contribute with development – fantastic! These guidelines are written to give you a good starting point, and to make you productive in the project as quickly as possible. However, if you feel that the written documentation is not descriptive enough, please reach out to the other developers on the project for a one-on-one introduction.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-### How we use GIT
-
-1. Create a new branch for your feature. We name branches based on whether they are a `feature/` or a `bugfix/`
-2. Make your changes. Use atomic commits. Be descriptive in Git messages; if you are unsure, follow the [7 rules of commit messages](https://chris.beams.io/posts/git-commit/)
-3. Test that it works, and has no lint errors
-4. Create a Pull Request, and await approval from other developers
-5. Merge into master
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
