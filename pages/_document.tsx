@@ -1,37 +1,36 @@
-import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document';
+import React from 'react';
+import Document, { DocumentContext, DocumentInitialProps, Html, Head, Main, NextScript } from 'next/document';
+import { ServerStyleSheet } from 'styled-components';
 import { resetServerContext } from 'react-beautiful-dnd';
 
 class MyDocument extends Document {
-  static async getInitialProps(ctx: DocumentContext) {
-    const initialProps = await Document.getInitialProps(ctx);
-    resetServerContext();
-    return { ...initialProps };
+  static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
+    const sheet = new ServerStyleSheet();
+    const originalRenderPage = ctx.renderPage;
+
+    try {
+      ctx.renderPage = () =>
+        originalRenderPage({
+          enhanceApp: (App) => (props) => sheet.collectStyles(<App {...props} />),
+        });
+
+      const initialProps = await Document.getInitialProps(ctx);
+
+      resetServerContext();
+
+      return {
+        ...initialProps,
+        styles: React.Children.toArray([initialProps.styles, sheet.getStyleElement()]),
+      };
+    } finally {
+      sheet.seal();
+    }
   }
 
   render() {
     return (
       <Html lang="en" className="no-fouc">
-        <Head>
-          <style jsx>{`
-            @import url('https://use.typekit.net/vvs7qox.css');
-            .no-fouc {
-              visibility: hidden;
-              opacity: 0;
-            }
-            .fouc {
-              visibility: visible;
-              opacity: 1;
-            }
-          `}</style>
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link rel="stylesheet" href="https://use.typekit.net/vvs7qox.css" />
-          <link rel="stylesheet" href="https://use.typekit.net/vvs7qox.css" />
-          <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-          <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-          <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-          <meta name="theme-color" content="#b8e1dc" />
-        </Head>
+        <Head>{/* your head content here */}</Head>
         <body>
           <Main />
           <NextScript />
@@ -40,4 +39,5 @@ class MyDocument extends Document {
     );
   }
 }
+
 export default MyDocument;

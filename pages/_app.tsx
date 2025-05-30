@@ -8,7 +8,13 @@ import ToucanLoader from '../components/info/ToucanLoader';
 import { AuthProvider } from '../contexts/AuthContext';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+    setIsLoading(false);
+  }, []);
 
   useEffect(() => {
     if (document && document.documentElement) {
