@@ -405,7 +405,7 @@ const CreatePost: React.FC<Props> = ({ user, allTags, className }: Props) => {
                         type="submit"
                         color={ButtonColor.INDIGO}
                         className="submit-post"
-                        disabled={title.length < 5 /* || previews.length === 0 */}>
+                        disabled={previews.length === 0 || title === ''}>
                         Share post
                       </Button>
                       {formTouched && previews.length === 0 && (
