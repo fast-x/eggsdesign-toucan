@@ -9,6 +9,7 @@ import { Trash } from '@phosphor-icons/react';
 import Button from '../clickables/Button';
 import { ButtonColor, ButtonSize, ButtonVariant } from '../../@types';
 import LoadingSpinnerRing from '../info/LoadingSpinnerRing';
+import Link from 'next/link';
 
 type CommentType = IComment & {
   onDelete: () => void;
@@ -33,9 +34,11 @@ const Comment = ({ text, author, createdAt, onDelete }: CommentType) => {
         <Avatar className="avatar" size={40} image={(author as Ref<User>).image} />
       </AvaWrapper>
       <TextWrapper>
-        <AuthorName>
-          {(author as Ref<User>).firstName} {(author as Ref<User>).lastName}
-        </AuthorName>
+        <Link passHref href={`/profile/${(author as Ref<User>)._id}`}>
+          <AuthorName>
+            {(author as Ref<User>).firstName} {(author as Ref<User>).lastName}
+          </AuthorName>
+        </Link>
         <CommentText>{text}</CommentText>
         <DaysAgo>{renderDaysText()}</DaysAgo>
       </TextWrapper>
@@ -88,6 +91,7 @@ const TextWrapper = styled.div`
 const AuthorName = styled.p`
   font-size: 0.875rem;
   color: ${tokens.colors.indigo['800'].value};
+  cursor: pointer;
 `;
 
 const CommentText = styled.p`

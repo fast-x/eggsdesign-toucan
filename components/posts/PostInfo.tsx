@@ -14,6 +14,7 @@ import { screenWidthLarge, tokens } from '../../styles/variables';
 import { Post, User } from '../../types';
 import Comments from '../comments/Comments';
 import AuthContext from '../../contexts/AuthContext';
+import Link from 'next/link';
 
 type Props = {
   author: User;
@@ -48,9 +49,11 @@ const PostInfo: React.FC<Props> = ({ author, post, isOpen, className }: Props) =
       <header>
         <Avatar image={author?.image} size={48} />
         <div className="text-content">
-          <span>
-            {post.author?.firstName} {post.author?.lastName}
-          </span>
+          <Link passHref href={`/profile/${author._id}`}>
+            <AuthorName>
+              {post.author?.firstName} {post.author?.lastName}
+            </AuthorName>
+          </Link>
           <span>{formatDateString(post._createdAt)}</span>
         </div>
       </header>
@@ -79,6 +82,10 @@ const PostInfo: React.FC<Props> = ({ author, post, isOpen, className }: Props) =
     </Wrapper>
   );
 };
+
+const AuthorName = styled.span`
+  cursor: pointer;
+`;
 
 const Wrapper = styled.div`
   background: white;
