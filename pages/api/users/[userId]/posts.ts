@@ -41,21 +41,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         }),
       );
 
-      const parsedTags = splitStringToArray(fields.tags as string);
+      let tags: { _type: string; _ref: string }[] = [];
 
-      // Create new tag documents in Sanity and get their IDs if they don't exist
-      // If the document already exists, get its ID
-
-      const tags = await Promise.all(
-        parsedTags.map(async (tag: string) => {
-          const tagID = await createTag(tag);
-          return {
-            _type: 'reference',
-            _ref: tagID,
-          };
-        }),
-      );
-
+      if (fields.tags && typeof fields.tags === 'string' && fields.tags.trim() !== '') {
+        const parsedTags = splitStringToArray(fields.tags);
+        tags = await Promise.all(
+          parsedTags.map(async (tag: string) => {
+            const tagID = await createTag(tag);
+            return {
+              _type: 'reference',
+              _ref: tagID,
+            };
+          }),
+        );
+      }
       await client.create(
         {
           _type: 'toucanPost',
